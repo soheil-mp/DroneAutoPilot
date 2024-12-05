@@ -1,0 +1,9 @@
+# Request
+string mission_type
+string mission_id
+string[] parameters
+---
+# Response
+bool success
+string message
+geometry_msgs/PoseArray waypoints  # Generated waypoints for visualization 

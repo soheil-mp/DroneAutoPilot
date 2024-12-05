@@ -1,102 +1,137 @@
-# ROS2 Drone Navigation System with Reinforcement Learning
+<div align="center">
 
-## Overview
-This repository contains a ROS2 (Humble) based drone navigation system that combines classical navigation approaches with reinforcement learning (RL) for enhanced autonomous capabilities. The system provides intelligent path planning, adaptive obstacle avoidance, and sophisticated mission control functionalities using deep RL algorithms.
+# 🚁 SkyPilot
 
-## 🚁 Features
-- Autonomous navigation using hybrid classical and RL-based approaches
-- Deep reinforcement learning for optimal path planning
-- Real-time obstacle detection and dynamic avoidance
-- Adaptive mission planning and execution
-- Support for multiple drone platforms (PX4, ArduPilot)
-- Advanced telemetry monitoring and data logging
-- Simulation support with Gazebo and AirSim
-- Web-based mission control interface
-- Training environments for RL agents
+### ROS2 Drone Navigation System with Reinforcement Learning
 
-## 🧠 Reinforcement Learning Components
-- PPO (Proximal Policy Optimization) implementation using Stable Baselines3
-- Custom OpenAI Gym environment for drone navigation
-- Reward shaping for efficient and safe navigation
-- Experience replay buffer for improved learning
-- Transfer learning support from simulation to real hardware
-- Curriculum learning for progressive skill acquisition
+[![ROS2 Humble](https://img.shields.io/badge/ROS2-Humble-blue)](https://docs.ros.org/en/humble/)
+[![Python 3.8+](https://img.shields.io/badge/Python-3.8%2B-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 📋 Prerequisites
+*An intelligent drone navigation system combining classical approaches with cutting-edge reinforcement learning*
 
-### Hardware Requirements
-- Compatible drone/UAV platform
-- Flight controller (Pixhawk 4/6 recommended)
-- Onboard computer (Raspberry Pi 4, Jetson Nano, or similar)
-- GPS module
-- IMU sensor
-- Optional: Depth camera or LiDAR for obstacle detection
-- Optional: GPU for accelerated RL training
+[Features](#-features) •
+[Installation](#%EF%B8%8F-installation) •
+[Usage](#-usage) •
+[Documentation](#-documentation) •
+[Contributing](#-contributing)
 
-### Software Requirements
-- Ubuntu 22.04 LTS
-- ROS2 Humble
-- Python 3.8+
-- CUDA 11.7+ (for GPU training)
-- PX4 or ArduPilot firmware
-- MAVROS
-- Gazebo and AirSim simulators
-- PyTorch 2.0+
-- Stable Baselines3
-- OpenAI Gym
+</div>
 
-## 🛠️ Installation
+---
 
-1. Install ROS2 Humble
+## 🌟 Features
+
+### Core Capabilities
+- 🧠 Hybrid navigation combining classical and RL approaches
+- 🎯 Deep reinforcement learning for optimal path planning
+- 🚧 Real-time obstacle detection and avoidance
+- 📱 Web-based mission control interface
+- 🎮 Support for multiple drone platforms (PX4, ArduPilot)
+
+### AI & Learning
+- 🤖 PPO implementation using Stable Baselines3
+- 🌍 Custom OpenAI Gym environment
+- 📈 Experience replay & curriculum learning
+- 🔄 Transfer learning from simulation to real hardware
+
+### Interface & Control
+- 🗺️ Interactive map with real-time tracking
+- 📊 Live telemetry visualization
+- ⚡ Battery and connection monitoring
+- 🎯 Waypoint & geofence management
+
+---
+
+## 🛠️ System Requirements
+
+### Hardware
+| Component | Recommendation |
+|-----------|---------------|
+| Flight Controller | Pixhawk 4/6 |
+| Onboard Computer | Raspberry Pi 4 / Jetson Nano |
+| Sensors | GPS, IMU, Optional: Depth camera/LiDAR |
+| Training Hardware | CUDA-capable GPU (Optional) |
+
+### Software
+| Requirement | Version |
+|------------|---------|
+| Ubuntu | 22.04 LTS |
+| ROS2 | Humble |
+| Python | 3.8+ |
+| CUDA | 11.7+ |
+| Node.js | 16+ |
+
+---
+
+## ⚡ Quick Start
+
+### 1. Base Installation
 ```bash
-sudo apt update && sudo apt install curl gnupg lsb-release
-sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+# Install ROS2 Humble
+curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-sudo apt update
-sudo apt install ros-humble-desktop
+sudo apt update && sudo apt install ros-humble-desktop
 ```
 
-2. Install Python dependencies
+### 2. Install Dependencies
 ```bash
+# Python packages
 pip install torch torchvision torchaudio
 pip install stable-baselines3[extra]
-pip install gym tensorboard
-```
+pip install gym tensorboard pyyaml fastapi uvicorn
 
-3. Install MAVROS and PX4
-```bash
+# MAVROS and PX4
 sudo apt-get install ros-humble-mavros ros-humble-mavros-extras
 wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh
 sudo bash ./install_geographiclib_datasets.sh
+
+# Node.js
+curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt-get install -y nodejs
 ```
 
-4. Clone and build this repository
+### 3. Clone & Build
 ```bash
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws/src
-git clone https://github.com/yourusername/drone_navigation_rl.git
+git clone https://github.com/soheil-mp/SkyPilot.git
 cd ..
 colcon build
 source install/setup.bash
 ```
 
-## 🎮 Usage
+### 4. Setup Web Interface
 
-### Training the RL Agent
 ```bash
-# Launch simulation
+# Frontend setup
+cd ~/ros2_ws/src/SkyPilot/web/frontend
+npm install
+
+# Backend setup
+cd ../backend
+python3 -m venv myenv
+source myenv/bin/activate
+pip install -r requirements.txt
+```
+
+### 5. Launch System
+
+#### Training Mode
+```bash
+# Start simulation
 ros2 launch drone_nav_rl gazebo_sim.launch.py
 
-# Start training
+# Begin training
 ros2 run drone_nav_rl train_agent.py
 
-# Monitor training
+# Monitor training (optional)
 tensorboard --logdir ./logs/training
 ```
 
-### Real-world Deployment
+#### Deployment Mode
 ```bash
-# Configure drone parameters
+# Configure drone
 ros2 launch drone_nav_rl params_config.launch.py
 
 # Start navigation stack
@@ -106,48 +141,94 @@ ros2 launch drone_nav_rl navigation.launch.py
 ros2 launch drone_nav_rl mission_control.launch.py
 ```
 
-## 📁 Project Structure
+#### Web Interface
+```bash
+# Terminal 1: Start backend server
+cd web/backend
+source myenv/bin/activate
+pip install -r requirements.txt
+uvicorn app.main:app --host 0.0.0.0 --port 8000
+
+# Terminal 2: Start frontend development server
+cd web/frontend
+npm start
+
+# For production deployment
+npm run build
 ```
-drone_navigation_rl/
-├── config/                 # Configuration files
-├── launch/                 # Launch files
-├── models/                 # Trained RL models
-├── scripts/               
-│   ├── train_agent.py     # Training script
-│   └── evaluate_agent.py   # Evaluation script
-��── src/
-│   ├── environments/      # Custom Gym environments
-│   ├── networks/          # Neural network architectures
-│   └── utilities/         # Helper functions
-└── tests/                 # Unit tests
-```
+
+---
 
 ## 🔧 Configuration
-Configure the system through YAML files in the `config` directory:
-- `rl_params.yaml`: RL training hyperparameters
-- `navigation_params.yaml`: Navigation parameters
-- `drone_params.yaml`: Drone configurations
+
+The system can be configured through YAML files in the `config` directory:
+
+| File | Purpose |
+|------|---------|
+| `rl_params.yaml` | RL training hyperparameters |
+| `navigation_params.yaml` | Navigation settings |
+| `drone_params.yaml` | Drone hardware configuration |
+| `mission_params.yaml` | Mission control parameters |
+
+---
+
+## 📁 Project Structure
+
+```
+SkyPilot/
+├── 📂 config/          # Configuration files
+├── 📂 launch/          # Launch files
+├── 📂 models/          # Trained RL models
+├── 📂 scripts/         # Training & evaluation
+├── 📂 src/            # Core source code
+├── 📂 web/            # Web interface
+└── 📂 tests/          # Unit tests
+```
+
+---
 
 ## 📊 Performance Metrics
-- Success rate in reaching targets
-- Average episode reward
-- Collision rate
-- Path optimality
-- Training convergence
-- Battery efficiency
+
+| Metric | Description |
+|--------|-------------|
+| Success Rate | Target reaching efficiency |
+| Path Optimality | Navigation efficiency |
+| Collision Rate | Safety performance |
+| Response Latency | Real-time performance |
+
+---
 
 ## 🤝 Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
 
-## 📝 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+We welcome contributions! Here's how you can help:
 
-## 📚 References
-- [ROS2 Documentation](https://docs.ros.org/en/humble/)
-- [Stable Baselines3 Documentation](https://stable-baselines3.readthedocs.io/)
-- [PX4 Developer Guide](https://dev.px4.io/)
-- [OpenAI Gym Documentation](https://gym.openai.com/) 
+1. 🍴 Fork the repository
+2. 🌿 Create a feature branch
+3. ✍️ Commit your changes
+4. 🚀 Push to the branch
+5. 📬 Open a Pull Request
+
+---
+
+## 📚 Documentation
+
+- [ROS2 Docs](https://docs.ros.org/en/humble/)
+- [Stable Baselines3](https://stable-baselines3.readthedocs.io/)
+- [PX4 Guide](https://dev.px4.io/)
+- [FastAPI Docs](https://fastapi.tiangolo.com/)
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+<div align="center">
+
+Made with ❤️ by the SkyPilot Team
+
+[⬆ Back to Top](#-skypilot)
+
+</div>

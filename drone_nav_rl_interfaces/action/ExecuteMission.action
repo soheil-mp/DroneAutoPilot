@@ -1,0 +1,12 @@
+# Goal
+string mission_id
+---
+# Result
+bool success
+string message
+---
+# Feedback
+uint32 current_waypoint
+uint32 total_waypoints
+float32 distance_to_waypoint
+float32 estimated_time_remaining 

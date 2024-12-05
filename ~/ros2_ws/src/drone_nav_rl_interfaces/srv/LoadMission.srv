@@ -1,0 +1,10 @@
+# Request
+string mission_id
+string mission_type  # waypoint, coverage, poi
+string[] waypoints
+float32[] boundary_points
+float32[] point_of_interest
+---
+# Response
+bool success
+string message 

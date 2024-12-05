@@ -1,0 +1,11 @@
+# Goal
+string mission_id
+---
+# Result
+bool success
+string message
+---
+# Feedback
+float32 progress
+string current_waypoint
+string status 

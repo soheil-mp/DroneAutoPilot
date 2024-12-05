@@ -1,0 +1,29 @@
+navigation:
+  planning:
+    max_velocity: 2.0  # m/s
+    max_acceleration: 1.0  # m/s^2
+    goal_tolerance: 0.5  # meters
+    yaw_tolerance: 0.1  # radians
+    update_rate: 20.0  # Hz
+    
+  obstacle_avoidance:
+    min_distance: 1.0  # meters
+    safety_margin: 0.5  # meters
+    scan_radius: 5.0  # meters
+    
+  path_following:
+    lookahead_distance: 2.0  # meters
+    max_path_deviation: 1.0  # meters
+    replan_threshold: 2.0  # meters
+    
+  control:
+    position_p: [1.0, 1.0, 1.0]  # xyz gains
+    velocity_p: [1.0, 1.0, 1.0]
+    attitude_p: [6.0, 6.0, 2.0]  # roll, pitch, yaw
+    attitude_rate_p: [1.0, 1.0, 1.0]
+    
+  safety:
+    max_tilt: 0.5  # radians
+    max_altitude: 10.0  # meters
+    battery_critical: 20.0  # percentage
+    return_home_battery: 30.0  # percentage 

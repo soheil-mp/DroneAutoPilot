@@ -1,0 +1,35 @@
+drone:
+  physical:
+    mass: 1.5  # kg
+    arm_length: 0.225  # meters
+    thrust_to_weight: 2.0
+    max_thrust: 30.0  # Newtons
+    
+  sensors:
+    imu_rate: 200  # Hz
+    gps_rate: 10   # Hz
+    camera:
+      resolution: [640, 480]
+      fov: 90  # degrees
+      fps: 30
+    lidar:
+      points: 16
+      range: 30.0  # meters
+      rate: 10  # Hz
+      
+  communication:
+    mavlink_rate: 50  # Hz
+    rc_timeout: 0.5   # seconds
+    telemetry_rate: 10  # Hz
+    
+  performance:
+    max_horizontal_velocity: 5.0  # m/s
+    max_vertical_velocity: 3.0    # m/s
+    max_yaw_rate: 1.57           # rad/s
+    hover_thrust: 0.5            # normalized (0-1)
+    
+  failsafe:
+    low_battery: 20              # percentage
+    critical_battery: 15         # percentage
+    connection_timeout: 1.0      # seconds
+    gps_hdop_threshold: 2.0      # meters 

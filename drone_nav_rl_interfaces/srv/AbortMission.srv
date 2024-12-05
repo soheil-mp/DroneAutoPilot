@@ -1,0 +1,7 @@
+# Request
+string mission_id
+bool return_to_home
+---
+# Response
+bool success
+string message 

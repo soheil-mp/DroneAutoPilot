@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>Cursor</author>
+      <authoring_tool>Cursor IDE</authoring_tool>
+    </contributor>
+    <created>2023-12-05</created>
+    <modified>2023-12-05</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_geometries>
+    <geometry id="Quadrotor">
+      <mesh>
+        <source id="positions">
+          <float_array id="positions-array" count="72">
+            -0.2 -0.2 0.0  0.2 -0.2 0.0  0.2 0.2 0.0  -0.2 0.2 0.0
+            -0.2 -0.2 0.1  0.2 -0.2 0.1  0.2 0.2 0.1  -0.2 0.2 0.1
+            -0.4 0.0 0.0  0.4 0.0 0.0  0.0 -0.4 0.0  0.0 0.4 0.0
+            -0.4 0.0 0.1  0.4 0.0 0.1  0.0 -0.4 0.1  0.0 0.4 0.1
+            -0.1 -0.1 0.0  0.1 -0.1 0.0  0.1 0.1 0.0  -0.1 0.1 0.0
+            -0.1 -0.1 0.2  0.1 -0.1 0.2  0.1 0.1 0.2  -0.1 0.1 0.2
+          </float_array>
+          <technique_common>
+            <accessor source="#positions-array" count="24" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="vertices">
+          <input semantic="POSITION" source="#positions"/>
+        </vertices>
+        <triangles count="44">
+          <input semantic="VERTEX" source="#vertices" offset="0"/>
+          <p>
+            0 1 2  0 2 3  4 5 6  4 6 7
+            0 4 5  0 5 1  1 5 6  1 6 2
+            2 6 7  2 7 3  3 7 4  3 4 0
+            8 9 12  8 12 13  10 11 14  10 14 15
+            16 17 18  16 18 19  20 21 22  20 22 23
+            16 20 21  16 21 17  17 21 22  17 22 18
+            18 22 23  18 23 19  19 23 20  19 20 16
+          </p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Scene">
+      <node id="Quadrotor" type="NODE">
+        <instance_geometry url="#Quadrotor"/>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA> 

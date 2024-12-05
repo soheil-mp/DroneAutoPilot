@@ -1,0 +1,7 @@
+# Request
+string mission_id
+bool emergency_land
+---
+# Response
+bool success
+string message 

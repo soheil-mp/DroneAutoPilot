@@ -1,0 +1,42 @@
+mission_control:
+  default_settings:
+    takeoff_altitude: 2.0  # meters
+    cruise_speed: 1.5     # m/s
+    return_to_home: true
+    failsafe_battery: 20  # percentage
+    
+  mission_types:
+    - waypoint_navigation
+    - area_coverage
+    - perimeter_inspection
+    - point_of_interest
+    
+  waypoint_settings:
+    acceptance_radius: 0.5  # meters
+    hover_time: 2.0        # seconds
+    yaw_mode: "auto"       # auto, manual, path_facing
+    
+  area_coverage:
+    pattern: "lawn_mower"  # lawn_mower, spiral, random
+    line_spacing: 2.0      # meters
+    overlap: 0.3           # percentage
+    
+  perimeter_inspection:
+    standoff_distance: 2.0  # meters
+    inspection_speed: 0.5   # m/s
+    yaw_mode: "point_facing"
+    
+  point_of_interest:
+    orbit_radius: 3.0      # meters
+    orbit_speed: 0.5       # m/s
+    orbit_height: 2.0      # meters
+    
+  geofence:
+    enabled: true
+    max_altitude: 10.0     # meters
+    min_altitude: 0.5      # meters
+    boundary_points:
+      - [0.0, 0.0]        # [x, y] coordinates
+      - [10.0, 0.0]
+      - [10.0, 10.0]
+      - [0.0, 10.0] 

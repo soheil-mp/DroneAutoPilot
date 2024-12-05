@@ -1,0 +1,34 @@
+rl_training:
+  algorithm: "PPO"
+  hyperparameters:
+    learning_rate: 3.0e-4
+    n_steps: 2048
+    batch_size: 64
+    n_epochs: 10
+    gamma: 0.99
+    gae_lambda: 0.95
+    clip_range: 0.2
+    ent_coef: 0.0
+    vf_coef: 0.5
+    max_grad_norm: 0.5
+    
+  network:
+    policy_type: "MlpPolicy"
+    net_arch:
+      pi: [256, 256]
+      vf: [256, 256]
+      
+  training:
+    total_timesteps: 1000000
+    save_freq: 10000
+    log_interval: 1
+    eval_freq: 10000
+    n_eval_episodes: 10
+    
+  environment:
+    max_episode_steps: 1000
+    reward_weights:
+      goal_distance: 1.0
+      collision: -1.0
+      energy: -0.1
+      smoothness: -0.1 

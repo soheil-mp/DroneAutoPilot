@@ -1,0 +1,8 @@
+# Request
+geometry_msgs/PoseStamped[] waypoints
+string optimization_type  # shortest, smooth, energy_efficient, safe_corridor
+---
+# Response
+geometry_msgs/PoseStamped[] optimized_waypoints
+bool success
+string message 

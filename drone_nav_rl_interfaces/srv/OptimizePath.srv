@@ -1,0 +1,9 @@
+# Request
+geometry_msgs/PoseArray waypoints
+string optimization_method
+float32 safety_margin
+---
+# Response
+bool success
+string message
+nav_msgs/Path optimized_path 
